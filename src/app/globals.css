@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-cream: #f7f1e8;
+  --color-ink: #2a241c;
+  --color-muted: #6f6558;
+  --color-clay: #c45c26;
+  --color-clay-dark: #9e4518;
+  --color-sage: #4f6f4e;
+  --color-card: #fffbf5;
+  --color-line: #e6dccf;
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-fraunces);
+}
+
+html {
+  background: var(--color-cream);
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+}

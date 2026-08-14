@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id            String         @id @default(cuid())
+  name          String
+  description   String         @default("")
+  imageUrl      String         @default("")
+  priceCents    Int
+  allowPartial  Boolean        @default(true)
+  active        Boolean        @default(true)
+  sortOrder     Int            @default(0)
+  createdAt     DateTime       @default(now())
+  contributions Contribution[]
+}
+
+model Contribution {
+  id              String   @id @default(cuid())
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  contributorName String
+  amountCents     Int
+  receiptPath     String
+  status          String   @default("confirmed")
+  createdAt       DateTime @default(now())
+}
+
+model Settings {
+  id          String @id @default("default")
+  pixKey      String
+  pixName     String @default("")
+  eventTitle  String
+  hostName    String
+  welcomeText String @default("")
+}
