@@ -34,7 +34,7 @@ body {
     border-color: var(--color-line);
   }
   50% {
-    border-color: #b7aea3;
+    border-color: var(--color-clay);
   }
 }
 
