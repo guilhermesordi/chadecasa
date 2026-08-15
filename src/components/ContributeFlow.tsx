@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import { CopyButton } from "./CopyButton";
 import { submitContribution } from "@/app/actions/contribute";
 import { formatBRL, formatReaisNumber, maskReaisInput, percentOf } from "@/lib/money";
@@ -140,8 +141,21 @@ export function ContributeFlow({
             <p className="text-sm text-muted">Titular: {pixName}</p>
           ) : null}
           <p className="text-sm text-muted">
-            Copia e cola no app do banco — o valor já vem {formatBRL(amount)}.
+            Escaneia o QR ou copia e cola no app do banco — o valor já vem{" "}
+            {formatBRL(amount)}.
           </p>
+          {pixPayload ? (
+            <div className="flex justify-center rounded-2xl bg-white p-4 ring-1 ring-line">
+              <QRCodeSVG
+                value={pixPayload}
+                size={200}
+                level="M"
+                bgColor="#ffffff"
+                fgColor="#2a241c"
+                title={`PIX de ${formatBRL(amount)}`}
+              />
+            </div>
+          ) : null}
           <div className="break-all rounded-xl bg-cream px-3 py-3 font-mono text-xs leading-relaxed">
             {pixPayload}
           </div>
