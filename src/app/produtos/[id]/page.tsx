@@ -58,13 +58,16 @@ export default async function ProductPage({
               <p className="text-sm leading-relaxed text-muted">{product.description}</p>
             ) : null}
             <p className="rounded-xl bg-cream px-3 py-2 text-sm text-ink">
-              Você pode contribuir com o valor inteiro ou só uma parte.
+              Sem pressão 💛 pode ser o valor todo ou só uma parte — o que
+              fizer sentido pra você.
             </p>
             <ProgressBar funded={funded} total={product.priceCents} />
             <p className="text-sm text-muted">
               {remaining <= 0
-                ? "Item completo"
-                : `${formatBRL(remaining)} ainda compráveis (${leftPct}%)`}
+                ? "Completinho, obrigado ✨"
+                : funded > 0
+                  ? `${leftPct}% ainda pode receber carinho · faltam ${formatBRL(remaining)}`
+                  : `Valor total: ${formatBRL(product.priceCents)} · contribui com o que quiser`}
             </p>
           </div>
         </div>

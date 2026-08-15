@@ -13,7 +13,7 @@ export async function getSettings() {
       eventTitle: "Chá de casa",
       hostName: "",
       welcomeText:
-        "Escolha um item da lista. Nos mais caros você pode contribuir só uma parte — o restante a gente junta com outras pessoas.",
+        "Fique à vontade contribuir com o que couber no momento 💛. Os presentes podem ser divididos entre várias pessoas, então não precisa abraçar um item sozinho.",
     },
   });
 }

@@ -14,13 +14,13 @@ type Product = {
 export function ProductCard({ product }: { product: Product }) {
   const remaining = remainingCents(product.priceCents, product.contributions);
   const funded = product.priceCents - remaining;
-  const leftPct = percentOf(remaining, product.priceCents);
+  const fundedPct = percentOf(funded, product.priceCents);
   const done = remaining <= 0;
 
   return (
     <Link
       href={`/produtos/${product.id}`}
-      className="block overflow-hidden rounded-2xl bg-card ring-1 ring-line"
+      className="block overflow-hidden rounded-2xl bg-card ring-1 ring-line transition hover:ring-clay/40"
     >
       <div className="relative aspect-[4/3] bg-line">
         {product.imageUrl ? (
@@ -37,20 +37,22 @@ export function ProductCard({ product }: { product: Product }) {
         )}
         {done ? (
           <span className="absolute right-3 top-3 rounded-full bg-sage px-3 py-1 text-xs font-semibold text-white">
-            Já temos
+            Já temos ✨
           </span>
         ) : null}
       </div>
       <div className="space-y-2 p-4">
         <div className="flex items-start justify-between gap-3">
           <h2 className="font-display text-lg leading-tight">{product.name}</h2>
-          <p className="shrink-0 text-sm font-semibold">{formatBRL(product.priceCents)}</p>
+          <p className="shrink-0 text-sm text-muted">{formatBRL(product.priceCents)}</p>
         </div>
         <ProgressBar funded={funded} total={product.priceCents} />
         <p className="text-xs text-muted">
           {done
-            ? "Item completo"
-            : `${formatBRL(remaining)} ainda compráveis (${leftPct}%)`}
+            ? "Completinho, obrigado 💛"
+            : funded > 0
+              ? `${fundedPct}% já veio com carinho · ainda dá pra somar`
+              : "Pode contribuir com o que couber no bolso 🙂"}
         </p>
       </div>
     </Link>

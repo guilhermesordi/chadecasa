@@ -50,7 +50,7 @@ export function ContributeFlow({
   if (remainingCents <= 0) {
     return (
       <p className="rounded-2xl bg-sage/10 px-4 py-3 text-sm text-sage">
-        Este item já foi completado. Obrigado!
+        Esse item já foi abraçado por completo. Obrigado 💛
       </p>
     );
   }
@@ -59,10 +59,10 @@ export function ContributeFlow({
     <div className="space-y-5">
       {step === "valor" && (
         <section className="space-y-4 rounded-2xl bg-card p-4 ring-1 ring-line">
-          <h2 className="font-display text-xl">Quanto você quer contribuir?</h2>
+          <h2 className="font-display text-xl">Quanto cabe pra você? 🙂</h2>
           <p className="text-sm text-muted">
-            Pode ser o item inteiro ou só uma parte. Faltam{" "}
-            {formatBRL(remainingCents)}.
+            Qualquer valor ajuda. Pode ser uma partezinha ou o restante (
+            {formatBRL(remainingCents)}).
           </p>
           <div className="grid grid-cols-4 gap-2">
             {[0.25, 0.5, 0.75, 1].map((fraction) => (
@@ -80,7 +80,7 @@ export function ContributeFlow({
                     : "bg-cream text-ink ring-line"
                 }`}
               >
-                {fraction === 1 ? "Tudo" : `${fraction * 100}%`}
+                {fraction === 1 ? "O que falta" : `${fraction * 100}%`}
               </button>
             ))}
           </div>
@@ -101,14 +101,16 @@ export function ContributeFlow({
             onClick={() => setStep("pix")}
             className="w-full rounded-xl bg-clay py-3 text-sm font-semibold text-white"
           >
-            Continuar para o PIX
+            Continuar com carinho
           </button>
         </section>
       )}
 
       {step === "pix" && (
         <section className="space-y-4 rounded-2xl bg-card p-4 ring-1 ring-line">
-          <h2 className="font-display text-xl">Pague {formatBRL(amount)} no PIX</h2>
+          <h2 className="font-display text-xl">
+            PIX de {formatBRL(amount)} 💛
+          </h2>
           {pixName ? (
             <p className="text-sm text-muted">Titular: {pixName}</p>
           ) : null}
@@ -117,8 +119,8 @@ export function ContributeFlow({
           </div>
           <CopyButton text={pixKey} />
           <p className="text-xs text-muted">
-            Sem integração de pagamento: você transfere e na próxima tela envia o
-            comprovante.
+            É só um PIX no seu ritmo. Depois, manda o comprovante pra gente
+            registrar o carinho.
           </p>
           <div className="grid grid-cols-2 gap-2">
             <button
@@ -141,9 +143,10 @@ export function ContributeFlow({
 
       {step === "comprovante" && (
         <section className="space-y-4 rounded-2xl bg-card p-4 ring-1 ring-line">
-          <h2 className="font-display text-xl">Enviar comprovante</h2>
+          <h2 className="font-display text-xl">Conta pra gente quem ajudou 😊</h2>
           <p className="text-sm text-muted">
-            Valor: {formatBRL(amount)}. Coloque seu nome para a gente agradecer.
+            Valor: {formatBRL(amount)}. Seu nome fica guardado só pra
+            agradecermos depois.
           </p>
           <form action={action} className="space-y-3">
             <input type="hidden" name="productId" value={productId} />
@@ -183,7 +186,7 @@ export function ContributeFlow({
                 disabled={pending}
                 className="rounded-xl bg-clay py-3 text-sm font-semibold text-white disabled:opacity-60"
               >
-                {pending ? "Enviando..." : "Enviar"}
+                {pending ? "Enviando..." : "Enviar com carinho"}
               </button>
             </div>
           </form>
