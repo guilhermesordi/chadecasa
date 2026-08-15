@@ -97,6 +97,7 @@ export default async function ProductPage({
         <div className="mt-5">
           <ContributeFlow
             productId={product.id}
+            productName={product.name}
             priceCents={product.priceCents}
             remainingCents={remaining}
             pixKey={settings.pixKey}

@@ -9,6 +9,7 @@ import { buildPixCopiaECola } from "@/lib/pix";
 
 type Props = {
   productId: string;
+  productName: string;
   priceCents: number;
   remainingCents: number;
   pixKey: string;
@@ -16,8 +17,16 @@ type Props = {
   pixCity: string;
 };
 
+const CARD_WHATSAPP = "5548999703280";
+
+function parcelWhatsAppUrl(productName: string, priceCents: number) {
+  const text = `Oi! Quero ajudar com ${productName} no cartão/parcelado. Sei que precisa ser o valor inteiro (${formatBRL(priceCents)}) e que vocês vão comprar no site comigo.`;
+  return `https://wa.me/${CARD_WHATSAPP}?text=${encodeURIComponent(text)}`;
+}
+
 export function ContributeFlow({
   productId,
+  productName,
   priceCents,
   remainingCents,
   pixKey,
@@ -37,6 +46,7 @@ export function ContributeFlow({
     amountCents: amount,
   });
   const pct = percentOf(amount, priceCents);
+  const canParcel = remainingCents >= priceCents;
 
   function setPctOfRemaining(fraction: number) {
     const next = Math.min(
@@ -121,14 +131,36 @@ export function ContributeFlow({
               {formatBRL(amount)} · {pct}% do produto
             </p>
           ) : null}
+          <p className="rounded-xl bg-cream px-3 py-3 text-sm leading-relaxed text-ink">
+            <span className="font-semibold">PIX</span> pode ser qualquer valor.
+            <br />
+            <span className="font-semibold">Parcelar no cartão</span> só vale
+            pro produto inteiro ({formatBRL(priceCents)}), pelo WhatsApp — a
+            gente entra no site da loja juntos e manda pro nosso endereço.
+          </p>
           <button
             type="button"
             disabled={amount <= 0}
             onClick={() => setStep("pix")}
             className="w-full rounded-xl bg-clay py-3 text-sm font-semibold text-white disabled:opacity-50"
           >
-            Continuar com carinho
+            Pagar com PIX
           </button>
+          {canParcel ? (
+            <a
+              href={parcelWhatsAppUrl(productName, priceCents)}
+              target="_blank"
+              rel="noreferrer"
+              className="block w-full rounded-xl py-3 text-center text-sm font-semibold ring-1 ring-line"
+            >
+              Quero parcelar
+            </a>
+          ) : (
+            <p className="text-xs leading-relaxed text-muted">
+              Esse item já tem contribuição em PIX, então não dá pra parcelar o
+              valor inteiro no cartão.
+            </p>
+          )}
         </section>
       )}
 
