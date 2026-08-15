@@ -131,7 +131,7 @@ export function ContributeFlow({
               {formatBRL(amount)} · {pct}% do produto
             </p>
           ) : null}
-          <p className="rounded-xl bg-cream px-3 py-3 text-sm leading-relaxed text-ink">
+          <p className="payment-hint rounded-xl border bg-cream px-3 py-3 text-sm leading-relaxed text-ink">
             <span className="font-semibold">PIX</span> pode ser qualquer valor.
             <br />
             <span className="font-semibold">Parcelar no cartão</span> só vale

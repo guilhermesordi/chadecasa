@@ -22,3 +22,24 @@ body {
   color: var(--color-ink);
   font-family: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
 }
+
+.payment-hint {
+  border-color: var(--color-line);
+  animation: payment-hint-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes payment-hint-pulse {
+  0%,
+  100% {
+    border-color: var(--color-line);
+  }
+  50% {
+    border-color: #b7aea3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .payment-hint {
+    animation: none;
+  }
+}
