@@ -14,8 +14,10 @@ const nunito = Nunito({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#c45c26",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#c45c26" },
+    { media: "(prefers-color-scheme: dark)", color: "#c45c26" },
+  ],
 };
 
 export async function generateMetadata(): Promise<Metadata> {
