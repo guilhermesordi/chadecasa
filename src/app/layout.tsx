@@ -14,7 +14,8 @@ const nunito = Nunito({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#f7f1e8",
+  themeColor: "#c45c26",
+  colorScheme: "light",
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,6 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
       settings.welcomeText ||
       "Lista de presentes do chá de casa. Pode contribuir só uma parte dos itens.",
     applicationName: title,
+    other: {
+      "msapplication-TileColor": "#c45c26",
+    },
   };
 }
 
