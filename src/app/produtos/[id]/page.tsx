@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getSettings } from "@/lib/settings";
@@ -8,6 +10,29 @@ import { ContributeFlow } from "@/components/ContributeFlow";
 
 export const dynamic = "force-dynamic";
 
+const getProduct = cache(async (id: string) => {
+  return prisma.product.findUnique({
+    where: { id },
+    include: { contributions: true },
+  });
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const product = await getProduct(id);
+  if (!product || !product.active) {
+    return { title: "Produto" };
+  }
+  return {
+    title: product.name,
+    description: product.description || undefined,
+  };
+}
+
 export default async function ProductPage({
   params,
 }: {
@@ -15,10 +40,7 @@ export default async function ProductPage({
 }) {
   const { id } = await params;
   const [product, settings] = await Promise.all([
-    prisma.product.findUnique({
-      where: { id },
-      include: { contributions: true },
-    }),
+    getProduct(id),
     getSettings(),
   ]);
 

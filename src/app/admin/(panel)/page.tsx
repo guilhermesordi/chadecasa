@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatBRL } from "@/lib/money";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Painel",
+};
 
 export default async function AdminHome() {
   const [productCount, contributions, collected, catalog] = await Promise.all([

@@ -1,6 +1,7 @@
+import { cache } from "react";
 import { prisma } from "./prisma";
 
-export async function getSettings() {
+export const getSettings = cache(async () => {
   const existing = await prisma.settings.findUnique({
     where: { id: "default" },
   });
@@ -16,4 +17,4 @@ export async function getSettings() {
         "Fique à vontade contribuir com o que couber no momento 💛. Os presentes podem ser divididos entre várias pessoas, então não precisa abraçar um item sozinho.",
     },
   });
-}
+});

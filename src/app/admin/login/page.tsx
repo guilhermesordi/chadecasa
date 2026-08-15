@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import { isAdmin } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./LoginForm";
+
+export const metadata: Metadata = {
+  title: "Entrar",
+};
 
 export default async function AdminLoginPage() {
   if (await isAdmin()) {

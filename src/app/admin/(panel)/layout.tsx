@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isAdmin } from "@/lib/auth";
 import { logoutAdmin } from "@/app/actions/admin";
+
+export const metadata: Metadata = {
+  title: "Admin",
+};
 
 export default async function AdminLayout({
   children,

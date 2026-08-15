@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import { getSettings } from "@/lib/settings";
 import { saveSettings } from "@/app/actions/admin";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "PIX e textos",
+};
 
 export default async function ConfigPage() {
   const settings = await getSettings();

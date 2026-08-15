@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatBRL, remainingCents, percentOf } from "@/lib/money";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Produtos",
+};
 
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({

@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { formatBRL } from "@/lib/money";
 import { confirmContribution, rejectContribution } from "@/app/actions/admin";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Ajudas",
+};
 
 export default async function ContributionsPage() {
   const items = await prisma.contribution.findMany({
