@@ -41,7 +41,7 @@ export default async function ProductPage({
               <img
                 src={product.imageUrl}
                 alt=""
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain object-center p-3"
               />
             ) : (
               <div className="flex h-full items-center justify-center bg-[#efe6d8] font-display text-6xl text-clay">
