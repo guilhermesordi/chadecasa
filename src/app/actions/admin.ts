@@ -37,6 +37,7 @@ export async function saveSettings(formData: FormData) {
     update: {
       pixKey: String(formData.get("pixKey") || "").trim(),
       pixName: String(formData.get("pixName") || "").trim(),
+      pixCity: String(formData.get("pixCity") || "").trim(),
       eventTitle: String(formData.get("eventTitle") || "").trim() || "Chá de casa",
       hostName: String(formData.get("hostName") || "").trim(),
       welcomeText: String(formData.get("welcomeText") || "").trim(),
@@ -45,6 +46,7 @@ export async function saveSettings(formData: FormData) {
       id: "default",
       pixKey: String(formData.get("pixKey") || "").trim(),
       pixName: String(formData.get("pixName") || "").trim(),
+      pixCity: String(formData.get("pixCity") || "").trim(),
       eventTitle: String(formData.get("eventTitle") || "").trim() || "Chá de casa",
       hostName: String(formData.get("hostName") || "").trim(),
       welcomeText: String(formData.get("welcomeText") || "").trim(),
@@ -52,6 +54,7 @@ export async function saveSettings(formData: FormData) {
   });
   revalidatePath("/");
   revalidatePath("/admin");
+  revalidatePath("/admin/config");
 }
 
 export async function saveProduct(

@@ -69,6 +69,7 @@ async function main() {
       id: "default",
       pixKey: "cole-sua-chave-pix-aqui",
       pixName: "Seu nome",
+      pixCity: "",
       eventTitle: "Chá de casa",
       hostName: "",
       welcomeText:

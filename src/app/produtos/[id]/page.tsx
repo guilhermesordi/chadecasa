@@ -101,6 +101,7 @@ export default async function ProductPage({
             remainingCents={remaining}
             pixKey={settings.pixKey}
             pixName={settings.pixName}
+            pixCity={settings.pixCity}
           />
         </div>
       </main>

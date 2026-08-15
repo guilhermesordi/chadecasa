@@ -40,4 +40,5 @@ model Settings {
   eventTitle  String
   hostName    String
   welcomeText String @default("")
+  pixCity     String @default("")
 }

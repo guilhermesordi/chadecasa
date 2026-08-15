@@ -13,6 +13,7 @@ export const getSettings = cache(async () => {
       pixName: "",
       eventTitle: "Chá de casa",
       hostName: "",
+      pixCity: "",
       welcomeText:
         "Fique à vontade contribuir com o que couber no momento 💛. Os presentes podem ser divididos entre várias pessoas, então não precisa abraçar um item sozinho.",
     },

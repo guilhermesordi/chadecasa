@@ -40,7 +40,18 @@ export default async function ConfigPage() {
           />
         </label>
         <label className="block text-sm">
-          <span className="mb-1 block text-muted">Chave PIX (copia e cola)</span>
+          <span className="mb-1 block text-muted">
+            Cidade do PIX (sem acento, ex: SAO PAULO)
+          </span>
+          <input
+            name="pixCity"
+            defaultValue={settings.pixCity}
+            placeholder="SAO PAULO"
+            className="w-full rounded-xl border border-line bg-white px-3 py-3"
+          />
+        </label>
+        <label className="block text-sm">
+          <span className="mb-1 block text-muted">Chave PIX</span>
           <textarea
             name="pixKey"
             rows={3}

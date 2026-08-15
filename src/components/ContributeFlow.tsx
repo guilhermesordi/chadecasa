@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { CopyButton } from "./CopyButton";
 import { submitContribution } from "@/app/actions/contribute";
 import { formatBRL, formatReaisNumber, maskReaisInput, percentOf } from "@/lib/money";
+import { buildPixCopiaECola } from "@/lib/pix";
 
 type Props = {
   productId: string;
@@ -11,6 +12,7 @@ type Props = {
   remainingCents: number;
   pixKey: string;
   pixName: string;
+  pixCity: string;
 };
 
 export function ContributeFlow({
@@ -19,6 +21,7 @@ export function ContributeFlow({
   remainingCents,
   pixKey,
   pixName,
+  pixCity,
 }: Props) {
   const [amount, setAmount] = useState(0);
   const [draft, setDraft] = useState("");
@@ -26,6 +29,12 @@ export function ContributeFlow({
   const [step, setStep] = useState<"valor" | "pix" | "comprovante">("valor");
   const [state, action, pending] = useActionState(submitContribution, null);
 
+  const pixPayload = buildPixCopiaECola({
+    key: pixKey,
+    name: pixName,
+    city: pixCity,
+    amountCents: amount,
+  });
   const pct = percentOf(amount, priceCents);
 
   function setPctOfRemaining(fraction: number) {
@@ -130,10 +139,13 @@ export function ContributeFlow({
           {pixName ? (
             <p className="text-sm text-muted">Titular: {pixName}</p>
           ) : null}
-          <div className="break-all rounded-xl bg-cream px-3 py-3 font-mono text-sm">
-            {pixKey}
+          <p className="text-sm text-muted">
+            Copia e cola no app do banco — o valor já vem {formatBRL(amount)}.
+          </p>
+          <div className="break-all rounded-xl bg-cream px-3 py-3 font-mono text-xs leading-relaxed">
+            {pixPayload}
           </div>
-          <CopyButton text={pixKey} />
+          <CopyButton text={pixPayload} label="Copiar PIX copia e cola" />
           <p className="text-xs text-muted">
             É só um PIX no seu ritmo. Depois, manda o comprovante pra gente
             registrar o carinho.
