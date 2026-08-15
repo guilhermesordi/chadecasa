@@ -37,7 +37,7 @@ export function maskReaisInput(raw: string, maxCents: number) {
   const intFormatted = whole.toLocaleString("pt-BR");
   return {
     display: hasComma ? `${intFormatted},${decDigits}` : intFormatted,
-    cents,
+    cents: typedCents,
   };
 }
 
