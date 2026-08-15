@@ -34,9 +34,11 @@ export default async function AdminHome() {
         </div>
         <div className="rounded-2xl bg-card p-4 ring-1 ring-line">
           <p className="text-xs text-muted">Já juntado</p>
-          <p className="mt-1 font-display text-xl leading-tight">
+          <p className="mt-1 font-display text-2xl leading-none">
             {formatBRL(collectedCents)}
-            <span className="text-muted"> / {formatBRL(catalogCents)}</span>
+          </p>
+          <p className="mt-1 text-sm text-muted">
+            de {formatBRL(catalogCents)}
           </p>
         </div>
       </div>
