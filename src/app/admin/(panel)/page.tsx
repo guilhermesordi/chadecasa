@@ -5,20 +5,24 @@ import { formatBRL } from "@/lib/money";
 export const dynamic = "force-dynamic";
 
 export default async function AdminHome() {
-  const [products, contributions] = await Promise.all([
-    prisma.product.findMany({ include: { contributions: true } }),
+  const [productCount, contributions, collected, catalog] = await Promise.all([
+    prisma.product.count(),
     prisma.contribution.findMany({
       where: { status: "confirmed" },
       include: { product: true },
       orderBy: { createdAt: "desc" },
       take: 8,
     }),
+    prisma.contribution.aggregate({
+      where: { status: "confirmed" },
+      _sum: { amountCents: true },
+    }),
+    prisma.product.aggregate({
+      _sum: { priceCents: true },
+    }),
   ]);
-  const total = await prisma.contribution.aggregate({
-    where: { status: "confirmed" },
-    _sum: { amountCents: true },
-    _count: true,
-  });
+  const collectedCents = collected._sum.amountCents || 0;
+  const catalogCents = catalog._sum.priceCents || 0;
 
   return (
     <main className="space-y-6">
@@ -26,12 +30,13 @@ export default async function AdminHome() {
       <div className="grid grid-cols-2 gap-3">
         <div className="rounded-2xl bg-card p-4 ring-1 ring-line">
           <p className="text-xs text-muted">Produtos</p>
-          <p className="mt-1 font-display text-2xl">{products.length}</p>
+          <p className="mt-1 font-display text-2xl">{productCount}</p>
         </div>
         <div className="rounded-2xl bg-card p-4 ring-1 ring-line">
           <p className="text-xs text-muted">Já juntado</p>
-          <p className="mt-1 font-display text-2xl">
-            {formatBRL(total._sum.amountCents || 0)}
+          <p className="mt-1 font-display text-xl leading-tight">
+            {formatBRL(collectedCents)}
+            <span className="text-muted"> / {formatBRL(catalogCents)}</span>
           </p>
         </div>
       </div>

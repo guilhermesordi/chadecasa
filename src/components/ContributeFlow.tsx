@@ -3,7 +3,7 @@
 import { useActionState, useState } from "react";
 import { CopyButton } from "./CopyButton";
 import { submitContribution } from "@/app/actions/contribute";
-import { formatBRL, percentOf } from "@/lib/money";
+import { formatBRL, formatReaisNumber, maskReaisInput, percentOf } from "@/lib/money";
 
 type Props = {
   productId: string;
@@ -28,32 +28,30 @@ export function ContributeFlow({
 
   const pct = percentOf(amount, priceCents);
 
-  function formatDraft(cents: number) {
-    return (cents / 100).toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
-
   function setPctOfRemaining(fraction: number) {
     const next = Math.min(
       remainingCents,
       Math.max(1, Math.round(remainingCents * fraction)),
     );
     setAmount(next);
-    setDraft(formatDraft(next));
+    setDraft(formatReaisNumber(next));
     setSelectedFraction(fraction);
   }
 
   function onCustomChange(value: string) {
-    const cleaned = value.replace(/[^\d.,]/g, "");
-    setDraft(cleaned);
+    const next = maskReaisInput(value, remainingCents);
+    setDraft(next.display);
+    setAmount(next.cents);
     setSelectedFraction(null);
-    const cents = Math.round(
-      Number(cleaned.replace(/\./g, "").replace(",", ".")) * 100,
-    );
-    if (!Number.isFinite(cents) || cents <= 0) return;
-    setAmount(Math.min(remainingCents, cents));
+  }
+
+  function onCustomBlur() {
+    if (amount <= 0) {
+      setDraft("");
+      setAmount(0);
+      return;
+    }
+    setDraft(formatReaisNumber(amount));
   }
 
   if (remainingCents <= 0) {
@@ -103,6 +101,7 @@ export function ContributeFlow({
                 placeholder="0,00"
                 value={draft}
                 onChange={(event) => onCustomChange(event.target.value)}
+                onBlur={onCustomBlur}
                 className="w-full bg-transparent py-3 text-base outline-none"
               />
             </span>
